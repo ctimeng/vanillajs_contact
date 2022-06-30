@@ -30,7 +30,7 @@
                         <input type="text" class="form-control" id="txtEmail" placeholder="john@example.com" />
                     </div>
                     <div class="mb-3 d-grid gap-2">
-                        <button type="button" class="btn btn-success" onclick="onSaveClick()">Save</button>
+                        <button type="button" id="btnSave" class="btn btn-success" onclick="onSaveClick()">Save</button>
                     </div>
                 </form>
             </div>
@@ -94,13 +94,14 @@
                 alert('Record already exists!');
                 return;
             }
-            
+            var actionText = 'Save';
             if (selectedIndex != emptyValue) {
                 let contact = contacts[selectedIndex];
                 contact.name = name;
                 contact.phone = phone;
                 contact.email = email;
                 contacts[selectedIndex] = contact;
+                actionText= 'Update';
             } else {
                 contacts.push(new contact(name, phone, email));
             }
@@ -108,7 +109,7 @@
 
             clearForm();
 
-            alert('Save successfully!');
+            alert(actionText+' successfully!');
 
             refeshList();
         }
@@ -144,6 +145,7 @@
             document.getElementById('txtPhone').value = contact.phone;
             document.getElementById('txtEmail').value = contact.email;
             selectedIndex = i;
+            document.getElementById('btnSave').innerText = 'Update';
         }
 
         let onDeleteClick = (e, i) => {
@@ -168,6 +170,7 @@
         }
 
         function clearForm() {
+            document.getElementById('btnSave').innerText = 'Save';
             document.getElementById('txtName').value = '';
             document.getElementById('txtPhone').value = '';
             document.getElementById('txtEmail').value = '';
